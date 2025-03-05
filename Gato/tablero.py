@@ -31,7 +31,7 @@ def usuario(simbolos:dict):
     ocupado = True
     while ocupado == True:
         numeros = [str(i) for i in range(1,10)]
-        x = input('Ingresa el el numero de la casilla: ')
+        x = input('Ingresa el numero de la casilla: ')
         if(x in numeros):
             if simbolos[x] not in ['X','O']:
                 simbolos[x] = 'X'
@@ -85,7 +85,29 @@ def checa_winner(simbolos:dict, combinaciones: list):
         if simbolos[c[0]] == simbolos[c[1]] == simbolos[c[2]]:
             return simbolos[c[0]]
     return None
-   
+def actualiza_score(score:dict,ganador:str):
+    '''Actualiza el score'''
+    X = score["X"]
+    O = score["O"]
+    if ganador  is not None:
+        print(f'El ganador es {ganador}')
+        if ganador == 'X':
+            X["G"] += 1
+            O["P"] += 1
+        elif ganador == 'O':
+            O["G"] += 1
+            X["P"] += 1
+        else:
+            print('Empate')
+            X["E"] += 1
+            O["E"] += 1   
+def despliega_tablero(score:dict):
+    '''Despliega el tablero score'''
+    print(f'''
+    X | G: {score["X"]["G"]} | P: {score["X"]["P"]} | E: {score["X"]["E"]}
+    O | G: {score["O"]["G"]} | P: {score["O"]["P"]} | E: {score["O"]["E"]}
+    ''') 
+         
 import random    
 if __name__ == '__main__':
  
@@ -96,6 +118,7 @@ if __name__ == '__main__':
         print(f'El ganador es {g}')
     else:
         print(f'Empate')
+        
     '''dibuja_tablero(dsimbolos)
     ia(dsimbolos)
     #x = random.choice(numeros)
